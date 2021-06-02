@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybats-3-mapper.dtd">
+<mapper namespace="kr.co.roomescape.dao.ThemeDao">
+	<insert id="theme_write_ok" parameterType="kr.co.roomescape.theme.dto.ThemeDto">
+		insert into theme(title,difficult,content,mimg)
+		values(#{title},#{difficult},#{content},#{mimg})
+	</insert>
+	<select id="theme" resultType="kr.co.roomescape.theme.dto.ThemeDto">
+		select * from theme
+	</select>
+	<delete id="theme_delete">
+		delete from theme where id=#{param1}
+	</delete>
+</mapper>

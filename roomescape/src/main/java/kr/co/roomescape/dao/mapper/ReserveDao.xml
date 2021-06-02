@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybats-3-mapper.dtd">
+<mapper namespace="kr.co.roomescape.dao.ReserveDao">
+  <insert id="reserve_ok" parameterType="kr.co.roomescape.reserve.dto.ReserveDto">
+    insert into reserve(email,payment,theme,intime,su,name,phone,pay,reserve_day,content,writeday)
+    values(#{email},#{payment},#{theme},#{intime},#{su},#{name},#{phone},#{pay},#{reserve_day},
+    #{content},now())
+  </insert>
+  
+  <select id="reserve_pass" resultType="kr.co.roomescape.reserve.dto.ReserveDto">
+  	 select r.id,intime,su,name,phone,pay,reserve_day,r.content,state,writeday,payment,
+  	 t.title as theme from reserve as r, theme as t where t.id=r.theme and email=#{param1}
+  </select>
+  
+  <update id="reserve_pass_ok">
+  	update reserve set state=1 where id=#{param1}
+  </update>
+  
+  <select id="get_list" resultType="kr.co.roomescape.theme.dto.ThemeDto"> 
+    select * from theme order by id desc    
+  </select>
+  
+  <select id="get_title" resultType="String">
+    select title from theme where id=#{param1}
+  </select>
+  
+  <select id="get_check" resultType="Integer">
+    select count(*) from reserve where theme=#{param1} and intime=#{param2} and reserve_day=#{param3}
+  </select>
+  
+  <select id="get_intime" resultType="String">
+    select intime from reserve where reserve_day=#{param1} and theme=#{param2}
+  </select>
+  
+</mapper>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybats-3-mapper.dtd">
+<mapper namespace="kr.co.roomescape.dao.BoardDao">
+	<insert id="f_write_ok" parameterType="kr.co.roomescape.board.dto.FboardDto">
+		insert into f_board(title,name,pwd,content,writeday)
+		values(#{title},#{name},#{pwd},#{content},now())
+	</insert>
+	<select id="f_board" resultType="kr.co.roomescape.board.dto.FboardDto">
+		select * from f_board order by id desc limit #{param1},20
+	</select>
+	<select id="chong_record" resultType="integer">
+		select count(*) from f_board
+	</select>
+	<update id="f_readnum">
+		update f_board set readnum=readnum+1 where id=#{param1}
+	</update>
+	<select id="f_content" resultType="kr.co.roomescape.board.dto.FboardDto">
+		select * from f_board where id=#{param1}
+	</select>
+	<delete id="f_delete">
+		delete from f_board where id=#{param1}
+	</delete>
+	<select id="f_update" resultType="kr.co.roomescape.board.dto.FboardDto">
+		select * from f_board where id=#{param1}
+	</select>
+	<select id="f_getPwd" resultType="String">
+		select pwd from f_board where id=#{param1}
+	</select>
+	<update id="f_update_ok" parameterType="kr.co.roomescape.board.dto.FboardDto">
+		update f_board set title=#{title}, name=#{name}, content=#{content} where id=#{id} and pwd=#{pwd}
+	</update>
+	
+	
+	<insert id="g_write_ok" parameterType="kr.co.roomescape.board.dto.GboardDto">
+		insert into g_board(title,content,readnum,writeday)
+		values(#{title},#{content},#{readnum},now())
+	</insert>
+	<select id="g_board" resultType="kr.co.roomescape.board.dto.GboardDto">
+		select * from g_board order by id desc limit #{param1},20
+	</select>
+	<select id="gchong_record" resultType="integer">
+		select count(*) from g_board
+	</select>
+	<update id="g_readnum">
+		update g_board set readnum=readnum+1 where id=#{param1}
+	</update>
+	<select id="g_content" resultType="kr.co.roomescape.board.dto.GboardDto">
+		select * from g_board where id=#{param1}
+	</select>
+	<delete id="g_delete">
+		delete from g_board where id=#{param1}
+	</delete>
+	<select id="g_update" resultType="kr.co.roomescape.board.dto.GboardDto">
+		select * from g_board where id=#{param1}
+	</select>
+	<update id="g_update_ok" parameterType="kr.co.roomescape.board.dto.GboardDto">
+		update g_board set title=#{title}, content=#{content} where id=#{id}
+	</update>
+	
+	
+	<select id="q_grp" resultType="integer">
+		select ifnull(max(grp),0) as grp from q_board
+	</select>
+	<insert id="q_write_ok" parameterType="kr.co.roomescape.board.dto.QboardDto">
+		insert into q_board(name,title,content,grp,writeday)
+		values(#{name},#{title},#{content},#{grp},now())
+	</insert>
+	<select id="q_board" resultType="kr.co.roomescape.board.dto.QboardDto">
+		select * from q_board order by grp desc, seq asc limit #{param1} ,20
+	</select>
+	<select id="qchong_record" resultType="integer">
+		select count(*) from q_board
+	</select>
+	<update id="q_readnum">
+		update q_board set readnum=readnum+1 where id=#{param1}
+	</update>
+	<select id="q_content" resultType="kr.co.roomescape.board.dto.QboardDto">
+		select * from q_board where id=#{param1}
+	</select>
+	<delete id="q_delete">
+		delete from q_board where id=#{param1}
+	</delete>
+	<select id="q_update" resultType="kr.co.roomescape.board.dto.QboardDto">
+		select * from q_board where id=#{param1}
+	</select>
+	<update id="q_update_ok" parameterType="kr.co.roomescape.board.dto.QboardDto">
+		update q_board set title=#{title}, name=#{name}, content=#{content} where id=#{id}
+	</update>
+	<select id="q_qwrite" resultType="kr.co.roomescape.board.dto.QboardDto">
+		select * from q_board where id=#{param1}
+	</select>
+	<update id="q_write_update">
+		update q_board set seq=seq+1 where seq >= #{param1} and grp=#{param2}
+	</update>
+	<insert id="q_qwrite_ok" parameterType="kr.co.roomescape.board.dto.QboardDto">
+		insert into q_board(name,title,content,grp,seq,depth,writeday)
+		values(#{name},#{title},#{content},#{grp},#{seq},#{depth},now())
+	</insert>
+</mapper>

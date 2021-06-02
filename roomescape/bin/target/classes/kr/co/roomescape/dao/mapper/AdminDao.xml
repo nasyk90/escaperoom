@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybats-3-mapper.dtd">
+<mapper namespace="kr.co.roomescape.dao.AdminDao">
+  <select id="get_number" resultType="Integer">
+    select ifnull(substring(max(pcode),10,3),0) from product where pcode like concat(#{param1},'%')
+  </select>
+  <insert id="pro_write_ok" parameterType="kr.co.roomescape.product.dto.ProductDto">
+    insert into product(pcode,mimg,pname,price,su,contimg,writeday)
+    value(#{pcode},#{mimg},#{pname},#{price},#{su},#{contimg},now())
+  </insert>
+</mapper>

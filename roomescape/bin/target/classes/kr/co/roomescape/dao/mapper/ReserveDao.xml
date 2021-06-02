@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybats-3-mapper.dtd">
+<mapper namespace="kr.co.roomescape.dao.ReserveDao">
+  <insert id="reserve_ok" parameterType="kr.co.roomescape.reserve.dto.ReserveDto">
+    insert into reserve(theme,intime,su,name,phone,pay,reserve_day,content,writeday)
+    values(#{theme},#{intime},#{su},#{name},#{phone},#{pay},#{reserve_day},
+    #{content},now())
+  </insert>
+  
+  <select id="reserve_pass" resultType="kr.co.roomescape.reserve.dto.ReserveDto">
+  	select * from reserve where name=#{param1}, phone=#{param2}
+  </select>
+</mapper>

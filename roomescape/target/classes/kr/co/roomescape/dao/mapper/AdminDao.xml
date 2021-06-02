@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybats-3-mapper.dtd">
+<mapper namespace="kr.co.roomescape.dao.AdminDao">
+  <select id="get_number" resultType="Integer">
+    select ifnull(substring(max(pcode),10,3),0) from product where pcode like concat(#{param1},'%')
+  </select>
+  <insert id="pro_write_ok" parameterType="kr.co.roomescape.product.dto.ProductDto">
+    insert into product(pcode,mimg,pname,price,su,contimg,writeday)
+    value(#{pcode},#{mimg},#{pname},#{price},#{su},#{contimg},now())
+  </insert>
+  <select id="admin_fboard" resultType="kr.co.roomescape.board.dto.FboardDto">
+  	select * from f_board order by id desc
+  </select>
+  <delete id="fboard_delete">
+  	delete from f_board where id=#{param1}
+  </delete>
+  <select id="admin_qboard" resultType="kr.co.roomescape.board.dto.QboardDto">
+  	select * from q_board order by id desc
+  </select>
+  <delete id="qboard_delete">
+  	delete from q_board where id=#{param1}
+  </delete>
+  <select id="reserve_select" resultType="kr.co.roomescape.reserve.dto.ReserveDto">
+  	select * from reserve order by id desc
+  </select>
+  <update id="reserve_select_ok">
+  	update reserve set state=2 where id=#{param1}
+  </update>
+</mapper>

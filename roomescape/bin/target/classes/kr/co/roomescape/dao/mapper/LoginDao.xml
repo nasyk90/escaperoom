@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybats-3-mapper.dtd">
+<mapper namespace="kr.co.roomescape.dao.LoginDao">
+  <select id="login_ok" resultType="kr.co.roomescape.member.dto.MemberDto" parameterType="kr.co.roomescape.member.dto.MemberDto">
+    select * from member where email=#{email} and pwd=#{pwd}
+  </select>
+  
+  <update id="login_ok_lastday">
+    update member set lastday=now() where email=#{param1}
+  </update>
+  
+  <update id="member_rec_ok">
+    update member set state=0 where email=#{param1}
+  </update>
+  
+  <select id="email_search_ok" resultType="kr.co.roomescape.member.dto.MemberDto">
+    select email,name from member where name=#{param1} and phone=#{param2}
+  </select>
+  
+  <update id="pwd_change_ok" parameterType="kr.co.roomescape.member.dto.MemberDto">
+    update member set pwd=#{pwd} where email=#{email} 
+  </update>
+  
+  
+</mapper>
