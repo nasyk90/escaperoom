@@ -3,7 +3,6 @@ package kr.co.roomescape.admin.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,7 +10,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -72,20 +70,24 @@ public class AdminController {
 		return "redirect:/admin/admin_board/admin_fboard";
 	}
 	
+	// 게시판 다중 삭제 controller
 	@RequestMapping("/admin/admin_board/ajax")
 	@ResponseBody
 	public String ajax(@RequestParam HashMap<String, Object> info) {
-		System.out.println(info.get("VAL"));
 		try {
 			int cnt = Integer.parseInt((String)info.get("CNT"));
 			String id = (String)info.get("VAL");
+			int v = Integer.parseInt((String)info.get("v"));
 			String[] strArray = id.split(",");
 			AdminDao adao=sqlSession.getMapper(AdminDao.class);
-			
+			System.out.println(v);
 			for(int i=0; i<cnt; i++) {
-				adao.fboard_delete(strArray[i]);
+				if(v == 1) {
+					adao.fboard_delete(strArray[i]);
+				}else if(v == 2) {
+					adao.qboard_delete(strArray[i]);
+				}
 			}
-			
 			return "1";
 		}catch (Exception e){
 			return "0";

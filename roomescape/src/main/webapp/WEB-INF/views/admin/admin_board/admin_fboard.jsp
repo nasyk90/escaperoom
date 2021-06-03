@@ -35,6 +35,7 @@
 		$("#del").click(function(){
 			var cnt = $(".chk:checked").length;
 			var arr = new Array();
+			var v = "1"
 			$(".chk:checked").each(function(){
 				arr.push($(this).val());
 			});
@@ -44,7 +45,7 @@
 				$.ajax({
 					url : 'ajax',
 					type : 'POST',
-					data : 'VAL=' + arr + '&CNT=' + cnt,
+					data : 'VAL=' + arr + '&CNT=' + cnt + '&v=' + v,
 					dataType : 'JSON',
 					success : function(data){
 						if(data == "0"){
@@ -75,15 +76,12 @@
 		</tr>
 		<c:forEach items="${list}" var="fdto">
 		<tr class="tr2">
-			<form method="post" action="fboard_delete">
-				<input type="hidden" name="id" value="${fdto.id}">
 				<td align="center"><input type="checkbox" class="chk" name="chk" value="${fdto.id}"></td>
 				<td align="center">${fdto.id}</td>
 				<td>${fdto.title}</td>
 				<td align="center">${fdto.name}</td>
 				<td align="center">${fdto.readnum}</td>
 				<td align="center">${fdto.writeday}</td>
-			</form>
 		</tr>
 		</c:forEach>
 	</table>
